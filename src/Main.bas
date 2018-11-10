@@ -26,7 +26,7 @@ End Sub
 
 Sub RunRenaming(needOverwriteExisting As Boolean, needRemoveOld As Boolean, needRenameRecursively As Boolean)
     Dim currentDoc As ModelDoc2
-    Dim component As ModelDoc2
+    Dim subDoc As ModelDoc2
     Dim i As Integer
        
     Init
@@ -37,8 +37,10 @@ Sub RunRenaming(needOverwriteExisting As Boolean, needRemoveOld As Boolean, need
         deps = swApp.GetDocumentDependencies2(currentDoc.GetPathName, True, False, False)
         If Not IsArrayEmpty(deps) Then
             For i = LBound(deps) + 1 To UBound(deps) Step 2  'full names
-                Set component = swApp.GetOpenDocumentByName(deps(i))
-                RenameAllProperties component, needOverwriteExisting, needRemoveOld
+                Set subDoc = swApp.GetOpenDocumentByName(deps(i))
+                If Not subDoc Is Nothing Then  'suppressed models is ignored
+                    RenameAllProperties subDoc, needOverwriteExisting, needRemoveOld
+                End If
             Next
         End If
     End If
