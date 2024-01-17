@@ -1,4 +1,6 @@
-﻿# ConvertProp
+This project has been moved to https://codeberg.org/e2t/convert-prop
+ 
+ # ConvertProp
 Макрос для конвертирования польских свойств (ключей) в русские.
 
 ### Зависимости
